@@ -34,7 +34,8 @@ export default function makeKnex(client) {
     },
 
     batchInsert(table, batch, chunkSize = 1000) {
-      return new BatchInsert(this, table, batch, chunkSize);
+      const job = new BatchInsert(this, table, batch, chunkSize);
+      return job.process();
     },
 
     // Runs a new transaction, taking a container and returning a promise

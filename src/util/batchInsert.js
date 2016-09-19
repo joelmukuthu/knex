@@ -58,7 +58,7 @@ export default class BatchInsert {
     });
   }
 
-  then(callback = function() {}) {
+  process() {
     return this._getTransaction()
       .then((transaction) => {
         return Promise.all(this.batch.map((items) => {
@@ -69,7 +69,7 @@ export default class BatchInsert {
             if(this._autoTransaction) {
               transaction.commit();
             }
-            return callback(flatten(result || []));
+            return flatten(result || []);
           })
           .catch((error) => {
             if(this._autoTransaction) {
